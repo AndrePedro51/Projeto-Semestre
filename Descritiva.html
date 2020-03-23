@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="css/index.css">
-  
+  <link rel="shortcut icon" href="img/favicon.ico">
   
 </head>
 <body onload="valorBarra()">
@@ -65,9 +65,9 @@
     <div class="row">
       <div class="text-light col-sm-4 col-md-6 col-lg-4 mx-auto">
         <h5>Insira o nome da variável</h5>
-        <input type="text" class="form-control"><br>
+        <input type="text" class="form-control" id="variavel"><br>
         <div class="form-check form-check-inline h5 mx-4">
-          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="populacao" value="option1">
+          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="populacao" value="option1" checked>
           <label class="form-check-label" for="populacao">População</label>
         </div>
         <div class="form-check form-check-inline h5 mx-4">
@@ -114,7 +114,7 @@
       </div>
     </div>
     <div class="ml-auto mr-auto text-center col-sm-4 col-md-6 col-lg-3 my-3">
-      <button type="button" class="btn btn-outline-light btn-block" data-toggle="modal" data-target="#ModalResultado"><h5>Calcular</h5></button>
+      <button type="button" class="btn btn-outline-light btn-block" data-toggle="modal" data-target="#ModalResultado" onclick="Calcular()"><h5>Calcular</h5></button>
     </div>
 
   </section>
@@ -129,9 +129,9 @@
         </div>
         <div class="modal-body">
           <table class="table table-hover table-dark">
-            <thead>
+            <thead >
               <tr>
-                <th scope="col">Variável</th>
+                <th scope="col" id="tituloTab">Variável</th>
                 <th scope="col">FI</th>
                 <th scope="col">FR%</th>
                 <th scope="col">FAC</th>

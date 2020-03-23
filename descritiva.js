@@ -38,8 +38,19 @@ function Separatriz(){
         vlrBarra.innerHTML = barra.value + "%"
     }
 }
+
+let tituloTab = document.getElementById('tituloTab')
+let variavel = document.getElementById('variavel')
+let dadosManuais = document.getElementById('dadosmanuais')
 function Calcular(){
+    let DMvalor = dadosManuais.value
+    let DMSeparado = DMvalor.split(';')
+    tituloTab.innerHTML = variavel.value
     
 }
+
+
+
+
 
 
