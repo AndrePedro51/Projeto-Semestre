@@ -1,13 +1,13 @@
 body{
 
-    background-image: url('background9.jpg'); 
+    background-image: url('background9-alteradomenor.jpg'); 
     background-attachment: fixed; 
     background-size: cover; 
     background-position: top; 
     background-repeat: no-repeat;
 }
 section{
-    padding: 50px;  
+    padding: 40px;  
     background-color: rgba(4, 4, 17, 0.863);
     width: 1200px;
     border-radius: 15px; 
