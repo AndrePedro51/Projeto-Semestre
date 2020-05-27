@@ -43,15 +43,57 @@ let tituloTab = document.getElementById('tituloTab')
 let variavel = document.getElementById('variavel')
 let dadosManuais = document.getElementById('dadosmanuais')
 let tipovar = document.getElementById('tipoVar')
+let dataTModal = document.getElementById('modalres')
+let amostra = document.getElementById('amostra')
+
 function Calcular(){
+    let modalTarget = dataTModal
     let vartipo = tipovar.value
     let DMvalor = dadosManuais.value
     let DMSeparado = DMvalor.split(';')
+    let pop = 1
+    let pass = 1
     tituloTab.innerHTML = variavel.value
     
+    if(amostra.checked){
+        pop = Math.round(((DMSeparado.length)*400)/((DMSeparado.length)+400))
+        pass = Math.trunc(DMSeparado.length/pop)
+        for(let i = 0;DMSeparado[i] < DMSeparado.length;i++){
+            DMSeparado.splice(i,(pass-1))
+        }
+    } 
+    alert(pop)
+    alert(pass)
+    alert(DMSeparado)
+    alert(DMSeparado.length)
+    
+
+    
+    
+    if ((aux > 0) & (vartipo == 'Quantitativa Discreta')){
+        alert("Digite apenas valores númericos")
+        modalTarget.setAttribute('data-target','0')
+
+    } else if ((aux > 0) & (vartipo == 'Quantitativa Contínua')) { 
+        alert("Digite apenas valores númericos")
+        modalTarget.setAttribute('data-target','0')
+    
+    } else if ((aux == 0) & (vartipo == 'Qualitativa Nominal')) { 
+        alert("Digite apenas valores não númericos")
+        modalTarget.setAttribute('data-target','0')
+
+    } else if ((aux == 0) & (vartipo == 'Qualitativa Ordinal')) { 
+        alert("Digite apenas valores não númericos")
+        modalTarget.setAttribute('data-target','0')
+        
+    } else {
+        modalTarget.setAttribute('data-target','#ModalResultado')
+    }
+
     
     
 }
+
 
 
 
