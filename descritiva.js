@@ -45,6 +45,8 @@ let dadosManuais = document.getElementById('dadosmanuais')
 let tipovar = document.getElementById('tipoVar')
 let dataTModal = document.getElementById('modalres')
 let amostra = document.getElementById('amostra')
+let tabelaCorpo = document.getElementById('corpoTabela')
+let tabela = document.getElementById('tabela')
 
 function Calcular(){
     let modalTarget = dataTModal
@@ -53,48 +55,91 @@ function Calcular(){
     let DMSeparado = DMvalor.split(';')
     let pop = 1
     let pass = 1
+    let aux = 0
     tituloTab.innerHTML = variavel.value
-    
+
+    //Verificação de dados
+
+    if(variavel.value == "" || vartipo.value == "Selecione..." || medida.value == "Selecione..." || DMSeparado.length == 1){
+        alert("Favor inserir todos os dados necessários!")
+        modalTarget.setAttribute('data-target','0')
+    } else {
+        for (let i = 0; i < DMSeparado.length;i++){
+        if (isNaN(DMSeparado[i])){
+            aux = 1
+        }
+        }
+        if ((aux > 0) & (vartipo == 'Quantitativa Discreta')){
+            alert("Digite apenas valores númericos")
+            modalTarget.setAttribute('data-target','0')
+
+        } else if ((aux > 0) & (vartipo == 'Quantitativa Contínua')) { 
+            alert("Digite apenas valores númericos")
+            modalTarget.setAttribute('data-target','0')
+        
+        } else if ((aux == 0) & (vartipo == 'Qualitativa Nominal')) { 
+            alert("Digite apenas valores não númericos")
+            modalTarget.setAttribute('data-target','0')
+
+        } else if ((aux == 0) & (vartipo == 'Qualitativa Ordinal')) { 
+            alert("Digite apenas valores não númericos")
+            modalTarget.setAttribute('data-target','0')
+            
+        } else {
+            modalTarget.setAttribute('data-target','#ModalResultado')
+        }
+    }
+
+    //Calculo amostra
+
     if(amostra.checked){
         pop = Math.round(((DMSeparado.length)*400)/((DMSeparado.length)+400))
         pass = Math.trunc(DMSeparado.length/pop)
-        for(let i = 0;DMSeparado[i] < DMSeparado.length;i++){
+        for(let i = 0; i < DMSeparado.length;i++){
             DMSeparado.splice(i,(pass-1))
         }
+        if (DMSeparado.length > pop){
+            for (let i = 0;DMSeparado.length >= pop;i++) {
+                DMSeparado.splice(i,(pass-1))
+            }
+        }
     } 
-    alert(pop)
-    alert(pass)
-    alert(DMSeparado)
-    alert(DMSeparado.length)
-    
-
+    let cont = 1
+    let acum = 1
+    tabelaCorpo.innerHTML = 
+    `
     
     
-    if ((aux > 0) & (vartipo == 'Quantitativa Discreta')){
-        alert("Digite apenas valores númericos")
-        modalTarget.setAttribute('data-target','0')
-
-    } else if ((aux > 0) & (vartipo == 'Quantitativa Contínua')) { 
-        alert("Digite apenas valores númericos")
-        modalTarget.setAttribute('data-target','0')
-    
-    } else if ((aux == 0) & (vartipo == 'Qualitativa Nominal')) { 
-        alert("Digite apenas valores não númericos")
-        modalTarget.setAttribute('data-target','0')
-
-    } else if ((aux == 0) & (vartipo == 'Qualitativa Ordinal')) { 
-        alert("Digite apenas valores não númericos")
-        modalTarget.setAttribute('data-target','0')
-        
-    } else {
-        modalTarget.setAttribute('data-target','#ModalResultado')
+    `
+    if(vartipo == "Quantitativa Discreta"){
+        DMSeparado =  DMSeparado.sort()
+        alert(DMSeparado)
+        for (let i = 1; i < DMSeparado.length; i++){
+            if(DMSeparado[i] === DMSeparado[i-1]){
+                cont++
+                acum++
+            } else {
+                
+                tabelaCorpo.innerHTML += 
+                 `
+                        <tr>
+                        <th scope = "row"> ${DMSeparado[i]}</td>
+                        <td>  ${cont} </td>
+                        <td> ${parseFloat(((cont/DMSeparado.length)*100).toFixed(2))} %</td>
+                        <td> ${acum} </td>
+                        <td> ${parseFloat(((acum/DMSeparado.length)*100).toFixed(2))} %</td>
+                        </tr>
+                    
+                    `
+                cont = 1
+                acum++
+            }
+        }
     }
+    
 
-    
-    
 }
-
-
+    
 
 
 
