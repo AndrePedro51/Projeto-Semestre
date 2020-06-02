@@ -47,6 +47,31 @@ let dataTModal = document.getElementById('modalres')
 let amostra = document.getElementById('amostra')
 let tabelaCorpo = document.getElementById('corpoTabela')
 let tabela = document.getElementById('tabela')
+let dadosGraf = [
+    ['Variável','Frequência']
+    
+]
+
+    
+
+
+function drawChart(){
+    const container = document.querySelector('#chart')
+    const data = new google.visualization.arrayToDataTable(dadosGraf)
+    const options = {
+        title: "Frequências",
+        height: 400,
+        width: 820,
+        is3D: true,
+        backgroundColor: 'transparent',
+        titleTextStyle: {color: "white", fontSize: 25},
+        legend: {textStyle: {color: 'white', fontSize: 17}}
+        
+    }
+    const chart = new google.visualization.PieChart(container)
+    chart.draw(data, options)
+}
+
 
 function Calcular(){
     let modalTarget = dataTModal
@@ -56,7 +81,7 @@ function Calcular(){
     let pop = 1
     let pass = 1
     let aux = 0
-    tituloTab.innerHTML = variavel.value
+    tituloTab.innerHTML  = variavel.value
 
     //Verificação de dados
 
@@ -111,30 +136,36 @@ function Calcular(){
     
     
     `
+    
     if(vartipo == "Quantitativa Discreta"){
         DMSeparado =  DMSeparado.sort()
         alert(DMSeparado)
-        for (let i = 1; i < DMSeparado.length; i++){
+        for (let i = 1; i <= DMSeparado.length; i++){
             if(DMSeparado[i] === DMSeparado[i-1]){
                 cont++
                 acum++
             } else {
                 
+                let frAtual = parseFloat(((cont/DMSeparado.length)*100).toFixed(2))
+                let frAcum = parseFloat(((acum/DMSeparado.length)*100).toFixed(2))
                 tabelaCorpo.innerHTML += 
                  `
                         <tr>
-                        <th scope = "row"> ${DMSeparado[i]}</td>
+                        <th scope = "row"> ${DMSeparado[i-1]}</td>
                         <td>  ${cont} </td>
-                        <td> ${parseFloat(((cont/DMSeparado.length)*100).toFixed(2))} %</td>
+                        <td> ${frAtual} %</td>
                         <td> ${acum} </td>
-                        <td> ${parseFloat(((acum/DMSeparado.length)*100).toFixed(2))} %</td>
+                        <td> ${frAcum} %</td>
                         </tr>
                     
                     `
+                
                 cont = 1
                 acum++
+
             }
         }
+        
     }
     
 

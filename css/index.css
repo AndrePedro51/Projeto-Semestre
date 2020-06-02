@@ -14,3 +14,11 @@ section{
     margin-left: auto; 
     margin-right: auto;
 }
+section#grafico{
+    padding: 20px;  
+    background-color: rgba(4, 4, 17, 0.863);
+    width: 750px;
+    border-radius: 15px; 
+    margin-left: auto; 
+    margin-right: auto;
+}
