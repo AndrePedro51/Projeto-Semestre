@@ -47,41 +47,27 @@ let dataTModal = document.getElementById('modalres')
 let amostra = document.getElementById('amostra')
 let tabelaCorpo = document.getElementById('corpoTabela')
 let tabela = document.getElementById('tabela')
-let dadosGraf = [
-    ['Variável','Frequência']
-    
-]
+let grafico = document.getElementById('grafico')
+let medidas = document.getElementById('medidas')
+let label = []
+let data = []
 
-    
+  
 
 
-function drawChart(){
-    const container = document.querySelector('#chart')
-    const data = new google.visualization.arrayToDataTable(dadosGraf)
-    const options = {
-        title: "Frequências",
-        height: 400,
-        width: 820,
-        is3D: true,
-        backgroundColor: 'transparent',
-        titleTextStyle: {color: "white", fontSize: 25},
-        legend: {textStyle: {color: 'white', fontSize: 17}}
-        
-    }
-    const chart = new google.visualization.PieChart(container)
-    chart.draw(data, options)
-}
+
 
 
 function Calcular(){
+    
     let modalTarget = dataTModal
     let vartipo = tipovar.value
     let DMvalor = dadosManuais.value
     let DMSeparado = DMvalor.split(';')
-    let pop = 1
-    let pass = 1
     let aux = 0
     tituloTab.innerHTML  = variavel.value
+     
+    
 
     //Verificação de dados
 
@@ -115,20 +101,8 @@ function Calcular(){
         }
     }
 
-    //Calculo amostra
 
-    if(amostra.checked){
-        pop = Math.round(((DMSeparado.length)*400)/((DMSeparado.length)+400))
-        pass = Math.trunc(DMSeparado.length/pop)
-        for(let i = 0; i < DMSeparado.length;i++){
-            DMSeparado.splice(i,(pass-1))
-        }
-        if (DMSeparado.length > pop){
-            for (let i = 0;DMSeparado.length >= pop;i++) {
-                DMSeparado.splice(i,(pass-1))
-            }
-        }
-    } 
+    
     let cont = 1
     let acum = 1
     tabelaCorpo.innerHTML = 
@@ -136,7 +110,12 @@ function Calcular(){
     
     
     `
-    
+    let a = 0
+    let var1 = []
+    let var2 = []
+    let var3 = []
+    let media = 0
+    let acummedia = 0
     if(vartipo == "Quantitativa Discreta"){
         DMSeparado =  DMSeparado.sort()
         alert(DMSeparado)
@@ -144,32 +123,64 @@ function Calcular(){
             if(DMSeparado[i] === DMSeparado[i-1]){
                 cont++
                 acum++
+                
             } else {
-                
-                let frAtual = parseFloat(((cont/DMSeparado.length)*100).toFixed(2))
-                let frAcum = parseFloat(((acum/DMSeparado.length)*100).toFixed(2))
-                tabelaCorpo.innerHTML += 
-                 `
-                        <tr>
-                        <th scope = "row"> ${DMSeparado[i-1]}</td>
-                        <td>  ${cont} </td>
-                        <td> ${frAtual} %</td>
-                        <td> ${acum} </td>
-                        <td> ${frAcum} %</td>
-                        </tr>
-                    
-                    `
-                
-                cont = 1
+                var1.push(DMSeparado[i-1])
+                var2.push(cont)
+                var3.push(acum)
                 acum++
+                a++
+                cont = 1
+                
 
             }
         }
         
+
+    }
+    for (let i = 0; i < var1.length; i++){
+        tabelaCorpo.innerHTML += 
+                 `
+                        <tr>
+                        <th scope = "row"> ${var1[i]} </td>
+                        <td>  ${var2[i]} </td>
+                        <td> ${parseFloat((var2[i]/DMSeparado.length)*100).toFixed(2)} %</td>
+                        <td> ${var3[i]} </td>
+                        <td> ${parseFloat((var3[i]/DMSeparado.length)*100).toFixed(2)} %</td>
+                        </tr>
+                    
+                    `
     }
     
+    for(let j = 0; j < var1.length;j++){
+        label[j] = var1[j]
+        data[j] = var2[j]
 
-}
+    }
+    let teste = DMSeparado
+    let soma = 0
+    for(let i = 0; i < teste.length;i++){
+        soma +=  parseInt(teste[i]) 
+    }
+    media = parseFloat(soma/DMSeparado.length).toFixed(2)
+    medidas.innerHTML += 
+    `
+    <h5>Média: ${media}</h5>
+    <h5></h5>
+    <h5></h5>
+    <h5></h5>
+
+    `
+
+    alert(media)
+    alert(soma)
+    alert(label)
+    alert(data)
+
+
+    
+
+} 
     
 
 
