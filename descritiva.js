@@ -66,6 +66,11 @@ function Calcular(){
     let DMSeparado = DMvalor.split(';')
     let aux = 0
     tituloTab.innerHTML  = variavel.value
+    medidas.innerHTML = 
+    `
+    
+
+    `
      
     
 
@@ -116,9 +121,11 @@ function Calcular(){
     let var3 = []
     let media = 0
     let acummedia = 0
+    let mediana =[]
+    
     if(vartipo == "Quantitativa Discreta"){
         DMSeparado =  DMSeparado.sort()
-        alert(DMSeparado)
+        
         for (let i = 1; i <= DMSeparado.length; i++){
             if(DMSeparado[i] === DMSeparado[i-1]){
                 cont++
@@ -151,31 +158,66 @@ function Calcular(){
                     
                     `
     }
-    
+    //adicionar dados no gráfico
     for(let j = 0; j < var1.length;j++){
         label[j] = var1[j]
         data[j] = var2[j]
 
     }
+    //calculo media
     let teste = DMSeparado
-    let soma = 0
+    let somamedia = 0
     for(let i = 0; i < teste.length;i++){
-        soma +=  parseInt(teste[i]) 
+        somamedia +=  parseInt(teste[i]) 
     }
-    media = parseFloat(soma/DMSeparado.length).toFixed(2)
+    media = parseFloat(somamedia/DMSeparado.length).toFixed(2)
+    //calculo mediana
+    let x = DMSeparado.length
+    if((x % 2) == 1){
+        let pos1 = parseInt(x/2)
+        mediana.push(DMSeparado[pos1])
+    }else{
+        let pos1 = (x/2)-1
+        let pos2 = (x/2)
+        mediana.push(DMSeparado[pos1])
+        mediana.push(DMSeparado[pos2])
+    }
+    //calculo moda
+    let maior = 0
+    let moda
+    for(let i = 0; i<var2.length;i++){
+        if(var2[i] > maior){
+            maior = var2[i]
+            moda = `Moda: ${var1[i]}`
+        }else if (maior == var2[i]){
+            moda+= ` ,${var1[i]}`
+
+        }
+    }
+    //calculo desvio padão
+    let somaDesvio = 0
+    let desvioP = 0
+    for (let i = 0; i < var1.length;i++){
+        somaDesvio += (Math.pow(var1[i]-media,2))*var2[i]
+        
+    }
+    
+    desvioP = parseFloat(Math.sqrt(somaDesvio/DMSeparado.length)).toFixed(2)
+    let coefVar = parseFloat((desvioP/media)*100).toFixed(2)
+    //calculo medida separatriz
+    let medidaSeparatriz = DMSeparado[Math.round(DMSeparado.length*(barra.value/100))] 
     medidas.innerHTML += 
     `
     <h5>Média: ${media}</h5>
-    <h5></h5>
-    <h5></h5>
-    <h5></h5>
+    <h5>Mediana: ${mediana}</h5>
+    <h5>${moda}</h5>
+    <h5>Desvio Padrão: ${desvioP}</h5>
+    <h5>Coeficiente da variação: ${coefVar}%</h5>
+    <h5>${medida.value} ${barra.value}% : ${medidaSeparatriz}</h5>
 
     `
 
-    alert(media)
-    alert(soma)
-    alert(label)
-    alert(data)
+    
 
 
     
