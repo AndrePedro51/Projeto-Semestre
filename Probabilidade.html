@@ -133,6 +133,7 @@
                 <label class="form-check-label text-light">Entre</label><br>
               </div>
               <div id="optionValor"></div>
+              <div id="resultadoNormal"></div>
           </section>
           
         </div>
@@ -154,15 +155,21 @@
         <div class="modal-body">
           <section id = 'dadosNormal' class = 'col'>
             <h5 class="my-2 text-light">Tamanho da amostra:</h5>
-            <input type="number" class="form-control col-4" id="media"><br>
+            <input type="number" class="form-control col-4" id="TamanhoAmostra"><br>
             <h5 class="my-2 text-light">Evento:</h5>
-            <input type="number" class="form-control col-4" id="desvioPadrao"><br>
+            <input type="number" class="form-control col-4" id="Evento"><br>
             <h5 class="my-2 text-light">Sucesso:</h5>
-            <input type="number" class="form-control col-4" id="desvioPadrao"><br>
+            <input type="number" class="form-control col-4" id="Sucesso"><br>
             <h5 class="my-2 text-light">Fracasso:</h5>
-            <input type="number" class="form-control col-4" id="desvioPadrao"><br>
+            <input type="number" class="form-control col-4" id="Fracasso"><br>
+            <div class="ml-auto mr-auto text-center col-sm-4 col-md-4 col-lg-4 my-3">
+              <button type="button" class="btn btn-outline-light btn-block" id = "calcular" onclick="CalcularBinomial()"><h5>Calcular</h5></button>
+          </div>
+          <div id="resultadoBinomial">
             
-        </section>
+          </div>
+            
+          </section>
           
         </div>
         <div class="modal-footer">
@@ -181,7 +188,26 @@
           </button>
         </div>
         <div class="modal-body">
-          
+          <section id = 'dadosNormal' class = 'col'>
+            <h5 class="my-2 text-light">Ponto mínimo:</h5>
+            <input type="number" class="form-control col-4" id="minimo"><br>
+            <h5 class="my-2 text-light">Ponto Máximo:</h5>
+            <input type="number" class="form-control col-4" id="maximo"><br>
+            <div class="form-check form-check-inline h6 mx-3">
+              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="maiorqueU" value="option1" onchange="escolhaUniforme()">
+              <label class="form-check-label text-light">Maior que</label>
+            </div>
+            <div class="form-check form-check-inline h6 mx-3">
+              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="menorqueU" value="option2" onchange="escolhaUniforme()">
+              <label class="form-check-label text-light">Menor que</label><br>
+            </div>
+            <div class="form-check form-check-inline h6 mx-3">
+              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="entreU" value="option3" onchange="escolhaUniforme()"> 
+              <label class="form-check-label text-light">Entre</label><br>
+            </div>
+            <div id="optionValorU"></div>
+            <div id="resultadoUniforme"></div>
+        </section>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
