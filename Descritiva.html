@@ -80,8 +80,8 @@
         </div>
         <div class="my-3">
           <h5>Selecione o tipo de variável</h5>
-          <select class="custom-select my-2" id="tipoVar">
-            <option selected>Selecione...</option>
+          <select class="custom-select my-2" id="tipoVar" >
+            <option>Selecione...</option>
             <option>Quantitativa Discreta</option>
             <option>Quantitativa Contínua</option>
             <option>Qualitativa Nominal</option>
@@ -153,8 +153,8 @@
               
             </section>
           </div>
-          <div class="my-2">
-            <section id='grafico' class = 'col'>
+          <div class="my-2" id = "grafico">
+            <section class = 'col'>
               <canvas id="myChart"></canvas>
             </section>
           </div>
@@ -172,6 +172,8 @@
     </div>
   </div>
   
+  
+  
     
     
   
@@ -186,6 +188,7 @@
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
     crossorigin="anonymous"></script>
 <script src="descritiva.js"></script>
+
 
 
 <script src="https://www.gstatic.com/charts/loader.js"></script>
@@ -203,9 +206,9 @@
     Chart.defaults.global.defaultFontColor = 'white';
   var chart = new Chart(ctx, {
     // The type of chart we want to create
-    type: 'bar',
+    type: tipo,
 
-    // The data for our dataset
+    // The data for our dataseta
     data: {
         labels: label,
         datasets: [{
@@ -218,13 +221,12 @@
     },
 
     // Configuration options go here
-    options: {scales: {
-      yAxes:[{ticks:{beginAtZero: true}}],
-    }},
+    options: option,
     labels: {
       fontColor: 'white'
     }
 });
 </script>
+
 
 </html>

@@ -13,6 +13,14 @@ let grafico = document.getElementById('grafico')
 let medidas = document.getElementById('medidas')
 let label = []
 let data = []
+let tipo = []
+let option =  {scales: {
+    yAxes:[{ticks:{beginAtZero: true}}],
+}}
+
+
+
+
 
 
 
@@ -65,14 +73,16 @@ function Separatriz(){
 
 function Calcular(){
     
+    
     let modalTarget = dataTModal
     let vartipo = tipovar.value
     let DMvalor = dadosManuais.value
     let DMSeparado = DMvalor.split(';')
     let aux = 0
+    
     data.splice(0,data.length)
     label.splice(0,label.length)
-    
+    tipo.splice(0,tipo.length)
     
     
     tituloTab.innerHTML  = variavel.value
@@ -135,7 +145,8 @@ function Calcular(){
     let mediana =[]
     
     if(vartipo == "Quantitativa Discreta"){
-        modalTarget.setAttribute('data-target','#ModalResultado')
+        
+        tipo.push('bar')
         DMSeparado = DMSeparado.sort(function(a, b){return a-b});
 
         
@@ -236,7 +247,8 @@ function Calcular(){
         `
 
     } else if (vartipo == "Quantitativa Contínua"){
-        
+       
+        tipo.push('bar')
         DMSeparado.sort(function(a, b){return a-b});
         let z = DMSeparado.length
         let x = parseInt(DMSeparado[z-1]) 
@@ -414,6 +426,8 @@ function Calcular(){
         
 
     } else if(vartipo == "Qualitativa Nominal"){
+        
+        tipo.push('pie')
         DMSeparado = DMSeparado.sort();
         
         for (let i = 1; i <= DMSeparado.length; i++){
@@ -490,6 +504,7 @@ function Calcular(){
     
         `
     }else if(vartipo == "Qualitativa Ordinal"){
+        tipo.push('pie')
         DMSeparado = DMSeparado.sort();
         
         for (let i = 1; i <= DMSeparado.length; i++){
