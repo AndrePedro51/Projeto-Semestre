@@ -15,6 +15,8 @@ let label = []
 let data = []
 
 
+
+
 function valorBarra(){
     vlrBarra.innerHTML = barra.value + "%"
     barra.oninput = function(){
@@ -68,6 +70,11 @@ function Calcular(){
     let DMvalor = dadosManuais.value
     let DMSeparado = DMvalor.split(';')
     let aux = 0
+    data.splice(0,data.length)
+    label.splice(0,label.length)
+    
+    
+    
     tituloTab.innerHTML  = variavel.value
     medidas.innerHTML = 
     `
@@ -128,7 +135,9 @@ function Calcular(){
     let mediana =[]
     
     if(vartipo == "Quantitativa Discreta"){
+        modalTarget.setAttribute('data-target','#ModalResultado')
         DMSeparado = DMSeparado.sort(function(a, b){return a-b});
+
         
         for (let i = 1; i <= DMSeparado.length; i++){
             if(DMSeparado[i] === DMSeparado[i-1]){
@@ -165,6 +174,10 @@ function Calcular(){
             data[j] = var2[j]
     
         }
+        
+
+
+
         //calculo media
         let teste = DMSeparado
         let somamedia = 0
@@ -298,8 +311,8 @@ function Calcular(){
         //calculos gráfico
         for(let j = 0; j < var21.length;j++){
             let s = "" + var11[j] + " |-- " + var11[j+1]
-            label[j] = s
-            data[j] = var21[j]
+            label.push(s)
+            data.push(var21[j])
     
         }
         //calculo media
@@ -434,8 +447,8 @@ function Calcular(){
         }
         //adicionar dados no gráfico
         for(let j = 0; j < var1.length;j++){
-            label[j] = var1[j]
-            data[j] = var2[j]
+            label.push(var1[j])
+            data.push(var2[j])
     
         }
         media = 'Não tem'
@@ -510,8 +523,8 @@ function Calcular(){
         }
         //adicionar dados no gráfico
         for(let j = 0; j < var1.length;j++){
-            label[j] = var1[j]
-            data[j] = var2[j]
+            label.push(var1[j])
+            data.push(var2[j])
     
         }
         media = 'Não tem'
